@@ -28,4 +28,18 @@ public class UserController {
             return Result.fail("用户名已存在");
         }
     }
+
+      // ========== 新增：登录接口 ==========
+    @PostMapping("/login")
+    public Result login(@RequestBody User user) {
+        // 调用登录方法
+        String resultMsg = userService.login(user.getUsername(), user.getPassword());
+        // 统一返回格式
+        if ("登录成功".equals(resultMsg)) {
+            return Result.success();
+        } else {
+            return Result.fail(resultMsg);
+        }
+    }
+
 }

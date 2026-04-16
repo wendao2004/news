@@ -10,4 +10,6 @@ public interface UserService {
     // 注册用户
     void register(String username, String password);
 
+    String login(String username, String password);
+
 }

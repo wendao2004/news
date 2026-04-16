@@ -25,8 +25,23 @@ public class UserServiceImpl implements UserService {
     public void register(String username, String password) {
         // 加密
         String md5String = Md5Util.encrypt(password);
-        
         // 添加用户
         userMapper.add(username, md5String);
     }
+
+     @Override
+    public String login(String username, String password) {
+        // 根据用户名查询用户
+        User existUser = findByUserName(username);
+        if (existUser == null) {
+            return "用户名不存在";
+        }
+        // 密码校验
+        String inputPasswordEncoded = Md5Util.encrypt(password);
+        if (!existUser.getPassword().equals(inputPasswordEncoded)) {
+            return "密码错误";
+        }
+        return "登录成功";
+    }
+    
 }
