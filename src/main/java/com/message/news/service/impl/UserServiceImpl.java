@@ -1,5 +1,6 @@
 package com.message.news.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.message.news.mapper.UserMapper;
@@ -9,7 +10,7 @@ import com.message.news.utils.Md5Util;
 
 @Service
 public class UserServiceImpl implements UserService {
-
+    @Autowired 
     private UserMapper userMapper;
 
     // 实现根据用户名查询用户接口
@@ -24,9 +25,8 @@ public class UserServiceImpl implements UserService {
     public void register(String username, String password) {
         // 加密
         String md5String = Md5Util.encrypt(password);
-
+        
+        // 添加用户
         userMapper.add(username, md5String);
-
-        // 添加
     }
 }
