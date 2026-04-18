@@ -12,6 +12,7 @@ import com.message.news.login.strategy.LoginStrategy;
 import com.message.news.mapper.UserMapper;
 import com.message.news.pojo.User;
 import com.message.news.service.UserService;
+import com.message.news.utils.JwtUtil;
 import com.message.news.utils.Md5Util;
 
 @Service
@@ -46,15 +47,22 @@ public class UserServiceImpl implements UserService {
         String inputPasswordEncoded = Md5Util.encrypt(password);
         if (!existUser.getPassword().equals(inputPasswordEncoded)) {
             return "密码错误";
+        } else if (existUser.getPassword().equals(inputPasswordEncoded)) {
+            Map<String, Object> claims = new HashMap<>(); // 创建一个HashMap来存储JWT的声明（claims）
+            claims.put("id", existUser.getId()); // 向claims中添加用户ID信息
+            claims.put("username", existUser.getUsername()); // 向claims中添加用户名信息
+            String token = JwtUtil.genToken(claims); // 使用JwtUtil工具类生成token，传入claims作为参数
+            return token; // 返回成功生成的token信息
         }
-        return "登录成功";
+        return inputPasswordEncoded;
+
     }
 
     // 所有登录策略（Spring自动注入所有实现类）
     @Autowired(required = false)
     private List<LoginStrategy> loginStrategies;
 
-    //所有登录后处理器（Spring自动注入所有实现类）
+    // 所有登录后处理器（Spring自动注入所有实现类）
     @Autowired(required = false)
     private List<LoginPostHandler> loginPostHandlers;
 

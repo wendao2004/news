@@ -23,29 +23,31 @@ public class UserController {
     public Result register(@RequestBody User user) {
         // 查询用户
         User u = userService.findByUserName(user.getUsername());
-        if(u == null){
+        if (u == null) {
             userService.register(user.getUsername(), user.getPassword());
             return Result.success();
-        }else{
+        } else {
             // 绝对用 fail，不是 error！
             return Result.fail("用户名已存在");
         }
     }
 
-      // ========== 新增：登录接口 ==========
+    // ========== 新增：登录接口 ==========
     @PostMapping("/login")
     public Result login(@RequestBody User user) {
-        // 调用登录方法
-        String resultMsg = userService.login(user.getUsername(), user.getPassword());
-        // 统一返回格式
-        if ("登录成功".equals(resultMsg)) {
-            return Result.success();
+        // 调用登录方法：成功=Token，失败=错误提示
+        String result = userService.login(user.getUsername(), user.getPassword());
+
+        // 判断：如果返回的是错误文字，就失败；否则就是Token，成功
+        if (result.equals("用户名不存在") || result.equals("密码错误")) {
+            return Result.fail(result);
         } else {
-            return Result.fail(resultMsg);
+            // 成功：把Token返回给前端
+            return Result.success(result);
         }
     }
 
-     // ========== 新增：扩展登录接口 ==========
+    // ========== 新增：扩展登录接口 ==========
     @PostMapping("/extend-login")
     public Result extendLogin(@RequestBody Map<String, String> loginParams) {
         try {

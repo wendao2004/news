@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class Result<T> {
     // ========== 常量定义（规范状态码） ==========
     private static final int CODE_SUCCESS = 200;
-    private static final int CODE_FAIL = 1;
+    private static final int CODE_FAIL = 401;
     private static final String MSG_SUCCESS = "操作成功";
     private static final String MSG_FAIL = "操作失败";
 
