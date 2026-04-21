@@ -24,8 +24,8 @@ public class JwtUtil {
         return JWT.create()
                 // 存入业务数据
                 .withClaim("claims", claims)
-                // 设置过期时间：12小时
-                .withExpiresAt(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 12))
+                // 设置过期时间：7天
+                .withExpiresAt(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 7))
                 // 签名
                 .sign(Algorithm.HMAC256(KEY));
     }

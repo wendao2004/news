@@ -38,7 +38,7 @@ public class JwtTest {
 
     @Test
     public void testParseToken() {
-        String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsImV4cCI6MTc3NjQ4MTQ3MX0.w4BTKWXHP10MGxWr_-ornGO1E1xtVRr63xL3yA0eviU";
+        String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsImV4cCI6MTc3Njc2MTEwOX0.y2g_WSZm-MQ-4W7ghwNzeD-kG_yR_PVFi2Vltp9xG2c";
         JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256("wendao"))
                 .build(); // 验证
         DecodedJWT decodedJWT = jwtVerifier.verify(token); // 解析（验证失败会抛异常）
