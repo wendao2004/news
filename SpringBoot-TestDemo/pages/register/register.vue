@@ -26,15 +26,21 @@
 </template>
 
 <script setup>
-	import {
-		ref
-	} from 'vue'
+	import { ref, onMounted } from 'vue'
 
 	// 表单数据
 	const form = ref({
 		username: '',
 		password: '',
 		confirmPwd: ''
+	})
+	
+	// 修复：用 onMounted 替代 onLoad，解决生命周期报错
+	onMounted(() => {
+		const token = uni.getStorageSync('TOKEN')
+		if (token) {
+			uni.switchTab({ url: "/pages/article/article" })
+		}
 	})
 
 	// 注册提交方法（uni-app 原生请求）
@@ -78,6 +84,9 @@
 						confirmPwd: ''
 					}
 					console.log(res);
+					uni.redirectTo({
+						url: "/pages/login/login"
+					})
 				} else {
 					console.log(res);
 					uni.showToast({
@@ -98,7 +107,7 @@
 </script>
 
 <style scoped>
-	/* uni-app 标准样式 */
+	/* 你的原有样式，完全未改动 */
 	.register-container {
 		width: 100vw;
 		height: 100vh;

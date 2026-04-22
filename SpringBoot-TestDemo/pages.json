@@ -13,7 +13,13 @@
 			}
 		},
 		{
-			"path": "pages/ariticle/ariticle",
+			"path": "pages/article/article",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/me/me",
 			"style": {
 				"navigationStyle": "custom"
 			}
@@ -24,6 +30,25 @@
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#999999",
+		"selectedColor": "#07C160",
+		"backgroundColor": "#FFFFFF",
+		"borderStyle": "black",
+		"list": [{
+				"pagePath": "pages/article/article",
+				"text": "咨询",
+				"iconPath": "",
+				"selectedIconPath": ""
+			},
+			{
+				"pagePath": "pages/me/me",
+				"text": "我",
+				"iconPath": "",
+				"selectedIconPath": ""
+			}
+		]
 	},
 	"uniIdRouter": {}
 }
