@@ -20,4 +20,5 @@ public interface UserService {
      * @return 登录结果（包含Token、日志等）
      */
     Map<String, Object> extendLogin(String loginType, String principal, String credential);
+    void update(User user);
 }

@@ -1,5 +1,6 @@
 package com.message.news.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,5 +91,11 @@ public class UserServiceImpl implements UserService {
         }
 
         return result;
+    }
+
+    @Override
+    public void update(User user) {
+        user.setUpdateTime(LocalDateTime.now());
+        userMapper.update(user);
     }
 }

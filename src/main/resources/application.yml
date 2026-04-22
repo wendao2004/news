@@ -5,3 +5,6 @@ spring: # Spring Boot 数据源配置
     username: root
     password: root
   
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true # 驼峰命名法

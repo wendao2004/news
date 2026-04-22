@@ -1,6 +1,5 @@
 package com.message.news.controller;
 
-import com.auth0.jwt.JWT;
 import com.message.news.pojo.Result;
 import com.message.news.pojo.User;
 import com.message.news.service.UserService;
@@ -57,6 +56,13 @@ public class UserController {
         String username = (String) map.get("username"); // 从Map中获取username字段，并将其转换为String类型
         User user = userService.findByUserName(username); // 通过userService的findByUserName方法根据用户名查询用户信息
         return Result.success(user); // 返回查询成功的用户信息，使用Result.success方法封装结果
+    }
+
+    // ========== 新增：更新用户信息接口 ==========
+    @PostMapping("/update")
+    public Result update(@RequestBody User user) {
+        userService.update(user);
+        return Result.success();
     }
 
     // ========== 新增：扩展登录接口 ==========
