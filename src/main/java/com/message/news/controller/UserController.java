@@ -5,7 +5,6 @@ import com.message.news.pojo.User;
 import com.message.news.service.UserService;
 import com.message.news.utils.JwtUtil;
 import com.message.news.utils.Md5Util;
-import com.message.news.utils.ThreadLocalUtil;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -81,8 +80,6 @@ public class UserController {
         return Result.success();
     }
 
-    // 更新用户密码
-    // 更新用户密码
     // 更新用户密码
     @PostMapping("/updatePassword")
     // 🔥 新增：注入 HttpServletRequest

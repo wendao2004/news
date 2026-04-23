@@ -2,6 +2,7 @@ package com.message.news.interceptors;
 
 import com.message.news.pojo.Result;
 import com.message.news.utils.JwtUtil;
+import com.message.news.utils.ThreadLocalUtil;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -38,7 +39,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             Map<String, Object> claims = JwtUtil.parseToken(token);
             // 🔥 仅新增：把用户名存入Request请求域（原生方式，无任何侵入）
             request.setAttribute("loginUsername", claims.get("username"));
-
+            ThreadLocalUtil.set(claims.get(token));
             // 校验通过 放行
             return true;
         } catch (Exception e) {
