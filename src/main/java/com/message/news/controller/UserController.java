@@ -4,15 +4,23 @@ import com.message.news.pojo.Result;
 import com.message.news.pojo.User;
 import com.message.news.service.UserService;
 import com.message.news.utils.JwtUtil;
+import com.message.news.utils.Md5Util;
+import com.message.news.utils.ThreadLocalUtil;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Map;
 
+import org.hibernate.validator.constraints.URL;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -63,6 +71,46 @@ public class UserController {
     @PostMapping("/update")
     public Result update(@RequestBody @Validated User user) {
         userService.update(user);
+        return Result.success();
+    }
+
+    // ========== 新增：更新用户头像接口 ==========
+    @PatchMapping("/updateAvatar")
+    public Result updateAvatar(@RequestParam @URL String avatarUrl) {
+        userService.updateAvatar(avatarUrl);
+        return Result.success();
+    }
+
+    // 更新用户密码
+    // 更新用户密码
+    // 更新用户密码
+    @PostMapping("/updatePassword")
+    // 🔥 新增：注入 HttpServletRequest
+    public Result updatePassword(@RequestBody Map<String, String> params, HttpServletRequest request) {
+        String oldPassword = params.get("oldPassword");
+        String newPassword = params.get("newPassword");
+        String confirmPassword = params.get("confirmPassword");
+
+        if (!StringUtils.hasLength(oldPassword) || !StringUtils.hasLength(newPassword)
+                || !StringUtils.hasLength(confirmPassword)) {
+            return Result.fail("请提供完整的密码信息");
+        }
+
+        // 🔥 核心：从Request获取登录用户名（替代ThreadLocal）
+        String username = (String) request.getAttribute("loginUsername");
+        User loginUser = userService.findByUserName(username);
+
+        // 验证旧密码
+        if (!loginUser.getPassword().equals(Md5Util.encrypt(oldPassword))) {
+            return Result.fail("旧密码错误");
+        }
+        // 验证两次密码
+        if (!newPassword.equals(confirmPassword)) {
+            return Result.fail("新密码和确认密码不一致");
+        }
+
+        // 更新密码
+        userService.updatePassword(loginUser.getId(), Md5Util.encrypt(newPassword));
         return Result.success();
     }
 

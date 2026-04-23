@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import tools.jackson.databind.ObjectMapper;
 
+import java.util.Map;
+
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -32,8 +34,11 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
 
         try {
-            // 3. 校验Token
-            JwtUtil.parseToken(token);
+            // 🔥 仅修改：接收解析后的用户数据（原有逻辑不动）
+            Map<String, Object> claims = JwtUtil.parseToken(token);
+            // 🔥 仅新增：把用户名存入Request请求域（原生方式，无任何侵入）
+            request.setAttribute("loginUsername", claims.get("username"));
+
             // 校验通过 放行
             return true;
         } catch (Exception e) {

@@ -15,6 +15,7 @@ import com.message.news.pojo.User;
 import com.message.news.service.UserService;
 import com.message.news.utils.JwtUtil;
 import com.message.news.utils.Md5Util;
+import com.message.news.utils.ThreadLocalUtil;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -98,4 +99,19 @@ public class UserServiceImpl implements UserService {
         user.setUpdateTime(LocalDateTime.now());
         userMapper.update(user);
     }
+
+    // 更新用户头像
+    @Override
+    public void updateAvatar(String avatarUrl) {
+        Map<String, Object> map = ThreadLocalUtil.get();
+        Integer userId = (Integer) map.get("id");
+        userMapper.updateAvatar(userId, avatarUrl);
+    }
+
+    // 更新用户密码
+    @Override
+    public void updatePassword(Integer id, String newPassword) {
+        userMapper.updatePassword(id, newPassword);
+    }
+
 }
