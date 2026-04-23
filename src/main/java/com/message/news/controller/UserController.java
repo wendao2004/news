@@ -8,6 +8,7 @@ import com.message.news.utils.JwtUtil;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -60,7 +61,7 @@ public class UserController {
 
     // ========== 新增：更新用户信息接口 ==========
     @PostMapping("/update")
-    public Result update(@RequestBody User user) {
+    public Result update(@RequestBody @Validated User user) {
         userService.update(user);
         return Result.success();
     }
