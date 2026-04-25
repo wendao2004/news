@@ -82,15 +82,15 @@
 
   3. 刷新Maven依赖，确保无缺失（核心依赖已配置，无需额外添加）
 
-  4. 启动SpringBoot主启动类，后端服务默认运行在 http://localhost:8080
+  4. 启动SpringBoot主启动类，后端服务默认运行在 http://localhost:8888
 
 3. 前端部署
 
   1. 用HBuilderX打开前端项目（uniapp目录）
 
   2. 修改 pages/article/article.vue 中的接口地址（确保与后端地址一致）
-          // 无需修改，默认已配置为 http://localhost:8080
-  url: 'http://localhost:8080/articles/list'
+          // 无需修改，默认已配置为 http://localhost:8888
+  url: 'http://localhost:8888/articles/list'
 
   3. 选择运行方式（模拟器/真机/浏览器），启动前端项目
 
@@ -98,7 +98,7 @@
 
   登录接口（获取Token）
 
-  POST http://localhost:8080/user/login
+  POST http://localhost:8888/user/login
   请求体（JSON）:
   {
     "username": "admin",
@@ -114,7 +114,7 @@
 
   文章列表接口（需携带Token）
 
-  GET http://localhost:8080/articles/list
+  GET http://localhost:8888/articles/list
   请求头:
   Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...（登录返回的Token）
 
