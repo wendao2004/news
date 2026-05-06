@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
             String token = JwtUtil.genToken(claims); // 使用JwtUtil工具类生成token，传入claims作为参数
             return token; // 返回成功生成的token信息
         }
-        return inputPasswordEncoded;
+        return inputPasswordEncoded; 
 
     }
 
