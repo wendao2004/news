@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +26,7 @@ public class AriticleController {
 
     // 添加文章
     @PostMapping
-    public Result<String> add(@RequestBody Article article, HttpServletRequest request) {
+    public Result<String> add(@RequestBody @Validated Article article, HttpServletRequest request) {
         articleService.add(article, request);
         return Result.success("文章添加成功");
     }
